@@ -1,9 +1,10 @@
 SMELL 1 - Primitive Obsession
 
-    Player is not an object, it would be much easier (and cleaner) if player was an object class
-    that keeps track of whether they are in a penalty box, amount of gold coins they have
-    and where on the board they are. This smell is bad because it makes the code harder to read and
-    adds unnecessary complications and possible errors.
+    Player and question should be objects, it would be much easier (and cleaner) if player and question were
+    object classes. The player class would keep track where on the board the player is, how many gold coins they have
+    and whether they are in a penalty box. The question class would keep track of all the questions and their types.
+    This smell is bad because it makes the code harder to read and adds unnecessary complications
+    and possible errors.
 
 SMELL 2 -
 
@@ -11,12 +12,12 @@ Question should also be an object. Question of type pop for example.
 
 SMELL 3 - Duplicate Code
 
-    In method roll a part of code is duplicated,
+    In method roll and wasCorrectlyAnswered, parts of code are duplicated,
 
 
                     places[currentPlayer] = places[currentPlayer] + roll;
 
-                    if (places[currentPlayer] > 11) //SMELL, risks index out of bounds error (65,55)
+                    if (places[currentPlayer] > 11)
                         places[currentPlayer] = places[currentPlayer] - 12;
 
                     System.out.println(players.get(currentPlayer)
@@ -25,7 +26,23 @@ SMELL 3 - Duplicate Code
                     System.out.println("The category is " + currentCategory());
                     askQuestion();
 
-    To fix this a simple extract method will do, and make the code more efficient and readable.
+ ------------------------------------------------------------------------------------------------------
+
+                    purses[currentPlayer]++;
+                    System.out.println(players.get(currentPlayer)
+                            + " now has "
+                            + purses[currentPlayer]
+                            + " Gold Coins.");
+
+                    boolean winner = didPlayerWin();
+                    currentPlayer++;
+                    if (currentPlayer == players.size())
+                        currentPlayer = 0;
+
+                    return winner;
+
+    To fix this a simple extract method will do, and make the code more efficient, readable and
+    consistent. Duplicates affect the complexity of the code and impacts its performance.
 
 
 
