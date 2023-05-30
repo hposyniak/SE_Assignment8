@@ -8,7 +8,6 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
-        //this.questions = questions;
     }
 
     public String getName() {
@@ -20,7 +19,6 @@ public class Category {
         questions.addLast(getName() + " Question " + i);
 
     }
-
     public void removeQuestion(){
 
         System.out.println(questions.removeFirst());

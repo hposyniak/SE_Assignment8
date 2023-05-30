@@ -1,4 +1,5 @@
 //Deliverable 1:
+//
 // SMELL 1 - Primitive Obsession
 //
 //    Player and question should be objects, it would be much easier (and cleaner) if player and question were
@@ -6,15 +7,18 @@
 //    and whether they are in a penalty box. The question class would keep track of all the questions and their types.
 //    This smell is bad because it makes the code harder to read and adds unnecessary complications
 //    and possible errors.
+//
 //SMELL 2 - Long Method
 //
 //    Method roll() is 38 lines long, usually when a method exceeds 10 lines of code we should look
 //    into how to keep them shorter.
+//
 //SMELL 3 - Duplicate Code
 //
 //    In methods roll() and wasCorrectlyAnswered(), parts of code are duplicated.To fix this we
 //    should implement an extract method, which will make the code more efficient, readable and
 //    consistent. Duplicates affect the complexity of the code and impacts its performance.
+//
 //Deliverable 2:
 // - the howManyPlayers() method is never used, which means the game never checks if there is enough players to play
 // - the code has poor structure, is hard to read. The methods are not in order and have inconsistent names which makes
@@ -42,6 +46,7 @@ public class Game {
 	}
 
 	public void add(Player playerName) {
+		// adds players to the game
 
 		players.add(playerName);
 
@@ -52,6 +57,7 @@ public class Game {
 
 
 	public Game() {
+		// Adds questions to categories
 
 		for (int i = 0; i < 50; i++) {
 
@@ -65,6 +71,7 @@ public class Game {
 
 
 	public int howManyPlayers() {
+		// returns amount of players in the game
 		return players.size();
 	}
 
@@ -113,6 +120,7 @@ public class Game {
 	}
 
 	private void askQuestion() {
+		// Asks a question based on the current category
 		if (currentCategory() == "Pop")
 			pop.removeQuestion();
 		if (currentCategory() == "Science")
@@ -124,6 +132,7 @@ public class Game {
 	}
 
 	private String currentCategory() {
+		// Sets current category based on the players position on the board
 		if (players.get(currentPlayer).getPlace() == 0 || players.get(currentPlayer).getPlace() == 4 || players.get(currentPlayer).getPlace() == 8)
 			return "Pop";
 		if (players.get(currentPlayer).getPlace() == 1 || players.get(currentPlayer).getPlace() == 5 || players.get(currentPlayer).getPlace() == 9 )
@@ -133,11 +142,11 @@ public class Game {
 		return "Rock";
 	}
 
-	public boolean wasCorrectlyAnswered() {
+	public boolean correctAnswer() {
 		if (players.get(currentPlayer).isInPenaltyBox()) {
 			if (isGettingOutOfPenaltyBox) {
 
-				return wasCorrect(players.get(currentPlayer));
+				return onceAnsweredCorrectly(players.get(currentPlayer));
 
 			} else {
 				currentPlayer++;
@@ -148,11 +157,13 @@ public class Game {
 
 		} else {
 
-			return wasCorrect(players.get(currentPlayer));
+			return onceAnsweredCorrectly(players.get(currentPlayer));
 		}
 	}
 
-	public boolean wasCorrect(Player player){
+	public boolean onceAnsweredCorrectly(Player player){
+
+		// This method returns whether the player won after answering a question correctly
 
 		System.out.println("Answer was correct!!!!");
 		player.addCoins(1);
@@ -170,6 +181,7 @@ public class Game {
 	}
 
 	public boolean wrongAnswer() {
+
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
 		players.get(currentPlayer).setInPenaltyBox(true);
@@ -181,9 +193,8 @@ public class Game {
 	}
 
 	private boolean didPlayerWin() {
-
+		// Checks whether a player has won
 		return !(players.get(currentPlayer).getCoins() == 6);
 	}
-
 
 }
