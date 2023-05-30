@@ -29,11 +29,14 @@ import java.util.LinkedList;
 public class Game {
 	ArrayList<Player> players = new ArrayList<>();
 
+	Question popQuestion = new Question("pop");
+
 	LinkedList popQuestions = new LinkedList();
 	LinkedList scienceQuestions = new LinkedList();
 	LinkedList sportsQuestions = new LinkedList();
 	LinkedList rockQuestions = new LinkedList();
 
+	//int token = 0; // renamed the previous currentPlayer int variable to token, as in the current player has the token
 	int currentPlayer = 0;
 	boolean isGettingOutOfPenaltyBox;
 
@@ -68,9 +71,6 @@ public class Game {
 	public String createRockQuestion(int index) {
 		return "Rock Question " + index;
 	}
-
-
-
 
 
 	public int howManyPlayers() {
@@ -133,23 +133,11 @@ public class Game {
 	}
 
 	private String currentCategory() {
-		if (players.get(currentPlayer).getPlace() == 0)
+		if (players.get(currentPlayer).getPlace() == 0 || players.get(currentPlayer).getPlace() == 4 || players.get(currentPlayer).getPlace() == 8)
 			return "Pop";
-		if (players.get(currentPlayer).getPlace() == 4)
-			return "Pop";
-		if (players.get(currentPlayer).getPlace() == 8)
-			return "Pop";
-		if (players.get(currentPlayer).getPlace() == 1)
+		if (players.get(currentPlayer).getPlace() == 1 || players.get(currentPlayer).getPlace() == 5 || players.get(currentPlayer).getPlace() == 9 )
 			return "Science";
-		if (players.get(currentPlayer).getPlace() == 5)
-			return "Science";
-		if (players.get(currentPlayer).getPlace() == 9)
-			return "Science";
-		if (players.get(currentPlayer).getPlace() == 2)
-			return "Sports";
-		if (players.get(currentPlayer).getPlace() == 6)
-			return "Sports";
-		if (players.get(currentPlayer).getPlace() == 10)
+		if (players.get(currentPlayer).getPlace() == 2 || players.get(currentPlayer).getPlace() == 6 || players.get(currentPlayer).getPlace() == 10)
 			return "Sports";
 		return "Rock";
 	}
@@ -157,19 +145,9 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (players.get(currentPlayer).isInPenaltyBox()) {
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				players.get(currentPlayer).addCoins(1);
-				System.out.println(players.get(currentPlayer).getName()
-						+ " now has "
-						+ players.get(currentPlayer).getCoins()
-						+ " Gold Coins.");
 
-				boolean winner = didPlayerWin();
-				currentPlayer++;
-				if (currentPlayer == players.size())
-					currentPlayer = 0;
+				return wasCorrect(players.get(currentPlayer));
 
-				return winner;
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size())
@@ -179,20 +157,25 @@ public class Game {
 
 		} else {
 
-			System.out.println("Answer was corrent!!!!");
-			players.get(currentPlayer).addCoins(1);
-			System.out.println(players.get(currentPlayer).getName()
-					+ " now has "
-					+ players.get(currentPlayer).getCoins()
-					+ " Gold Coins.");
-
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size())
-				currentPlayer = 0;
-
-			return winner;
+			return wasCorrect(players.get(currentPlayer));
 		}
+	}
+
+	public boolean wasCorrect(Player player){
+
+		System.out.println("Answer was correct!!!!");
+		player.addCoins(1);
+		System.out.println(player.getName()
+				+ " now has "
+				+ player.getCoins()
+				+ " Gold Coins.");
+
+		boolean winner = didPlayerWin();
+		currentPlayer++;
+			if (currentPlayer == players.size())
+			currentPlayer = 0;
+
+		return winner;
 	}
 
 	public boolean wrongAnswer() {

@@ -6,6 +6,7 @@ public class GameRunner {
 	private static boolean notAWinner;
 
 	public static void main(String[] args) {
+
 		Game aGame = new Game();
 
 		Player Chet = new Player("Chet",0,0,false);
@@ -13,8 +14,9 @@ public class GameRunner {
 		Player Sue = new Player("Sue",0,0,false);
 
 		aGame.add(Chet);
-		//aGame.add(Pat);
-		//aGame.add(Sue);
+		aGame.add(Pat);
+		aGame.add(Sue);
+
 
 		Random rand = new Random();
 
@@ -26,6 +28,8 @@ public class GameRunner {
 				return;
 
 			}
+
+
 
 			aGame.roll(rand.nextInt(5) + 1);
 
