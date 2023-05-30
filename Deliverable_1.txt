@@ -1,0 +1,5 @@
+SMELL 1 - Primitive Obsession
+
+Player is not an object, it would be much easier (and cleaner) if player was an object class
+that keeps track of whether they are in a penalty box, amount of gold coins they have
+and where on the board they are.
