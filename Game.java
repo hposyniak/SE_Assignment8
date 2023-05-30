@@ -1,3 +1,22 @@
+//SMELL 1 - Primitive Obsession
+//
+//    Player and question should be objects, it would be much easier (and cleaner) if player and question were
+//    object classes. The player class would keep track where on the board the player is, how many gold coins they have
+//    and whether they are in a penalty box. The question class would keep track of all the questions and their types.
+//    This smell is bad because it makes the code harder to read and adds unnecessary complications
+//    and possible errors.
+//SMELL 2 - Long Method
+//
+//    Method roll() is 38 lines long, usually when a method exceeds 10 lines of code we should look
+//    into how to keep them shorter.
+//SMELL 3 - Duplicate Code
+//
+//    In methods roll() and wasCorrectlyAnswered(), parts of code are duplicated.To fix this we
+//    should implement an extract method, which will make the code more efficient, readable and
+//    consistent. Duplicates affect the complexity of the code and impacts its performance.
+
+
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -62,7 +81,7 @@ public class Game {
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 				places[currentPlayer] = places[currentPlayer] + roll;
 
-				if (places[currentPlayer] > 11) //SMELL, risks index out of bounds error (65,55)
+				if (places[currentPlayer] > 11)
 					places[currentPlayer] = places[currentPlayer] - 12; 
 
 				System.out.println(players.get(currentPlayer)
@@ -79,7 +98,7 @@ public class Game {
 
 			places[currentPlayer] = places[currentPlayer] + roll;
 			if (places[currentPlayer] > 11)
-				places[currentPlayer] = places[currentPlayer] - 12; // same smell as line 65,66
+				places[currentPlayer] = places[currentPlayer] - 12;
 
 			System.out.println(players.get(currentPlayer)
 					+ "'s new location is "
@@ -170,13 +189,13 @@ public class Game {
 		inPenaltyBox[currentPlayer] = true;
 
 		currentPlayer++;
-		if (currentPlayer == players.size()) //"=>"", because what if there are 5 players 
+		if (currentPlayer == players.size())
 			currentPlayer = 0;
 		return true;
 	}
 
 	private boolean didPlayerWin() {
 
-		return !(purses[currentPlayer] == 6); // should be without "!", because they win when the get 6
+		return !(purses[currentPlayer] == 6);
 	}
 }
