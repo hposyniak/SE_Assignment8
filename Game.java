@@ -38,7 +38,6 @@ public class Game {
 	boolean isGettingOutOfPenaltyBox;
 
 	public boolean isPlayable() {
-
 		//checks whether there is sufficient amount of players to play
 
 		return (howManyPlayers() >= 2);
@@ -47,18 +46,11 @@ public class Game {
 	public void add(Player playerName) {
 
 		players.add(playerName);
-//		places[howManyPlayers()] = 0;
-//		purses[howManyPlayers()] = 0;
-//		inPenaltyBox[howManyPlayers()] = false;
 
 		System.out.println(playerName.getName() + " was added");
 		System.out.println("They are player number " + players.size());
 
 	}
-
-
-
-
 
 
 	public Game() {
@@ -97,16 +89,11 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 
 				System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
+
 				players.get(currentPlayer).setPlace(players.get(currentPlayer).getPlace() + roll);
 
-				if (players.get(currentPlayer).getPlace() > 11)
-					players.get(currentPlayer).setPlace(players.get(currentPlayer).getPlace() - 12);
+				turn(players.get(currentPlayer));
 
-				System.out.println(players.get(currentPlayer).getName()
-						+ "'s new location is "
-						+ players.get(currentPlayer).getPlace());
-				System.out.println("The category is " + currentCategory());
-				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
@@ -116,15 +103,21 @@ public class Game {
 
 			players.get(currentPlayer).setPlace(players.get(currentPlayer).getPlace()+roll);
 
-			if (players.get(currentPlayer).getPlace() > 11)
-				players.get(currentPlayer).setPlace(players.get(currentPlayer).getPlace() - 12);
-
-			System.out.println(players.get(currentPlayer).getName()
-					+ "'s new location is "
-					+ players.get(currentPlayer).getPlace());
-			System.out.println("The category is " + currentCategory());
-			askQuestion();
+			turn(players.get(currentPlayer));
 		}
+
+	}
+
+	public void turn(Player player){
+
+		if (player.getPlace() > 11)
+			player.setPlace(player.getPlace() - 12);
+
+		System.out.println(player.getName()
+				+ "'s new location is "
+				+ player.getPlace());
+		System.out.println("The category is " + currentCategory());
+		askQuestion();
 
 	}
 
@@ -217,4 +210,6 @@ public class Game {
 
 		return !(players.get(currentPlayer).getCoins() == 6);
 	}
+
+
 }
