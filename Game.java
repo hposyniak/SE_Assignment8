@@ -29,12 +29,15 @@ import java.util.LinkedList;
 public class Game {
 	ArrayList<Player> players = new ArrayList<>();
 
-	Question popQuestion = new Question("pop");
-
 	LinkedList popQuestions = new LinkedList();
 	LinkedList scienceQuestions = new LinkedList();
 	LinkedList sportsQuestions = new LinkedList();
 	LinkedList rockQuestions = new LinkedList();
+
+	Category pop = new Category("Pop");
+	Category science = new Category("Science");
+	Category sports = new Category("Sports");
+	Category rock = new Category("Rock");
 
 	//int token = 0; // renamed the previous currentPlayer int variable to token, as in the current player has the token
 	int currentPlayer = 0;
@@ -60,16 +63,17 @@ public class Game {
 
 		for (int i = 0; i < 50; i++) {
 
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+			pop.addQuestion(i);
+			science.addQuestion(i);
+			sports.addQuestion(i);
+			rock.addQuestion(i);
+
+//			popQuestions.addLast("Pop Question " + i);
+//			scienceQuestions.addLast(("Science Question " + i));
+//			sportsQuestions.addLast(("Sports Question " + i));
+//			rockQuestions.addLast(createRockQuestion(i));
 
 		}
-	}
-
-	public String createRockQuestion(int index) {
-		return "Rock Question " + index;
 	}
 
 
@@ -123,13 +127,13 @@ public class Game {
 
 	private void askQuestion() {
 		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
+			pop.removeQuestion();
 		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
+			science.removeQuestion();
 		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
+			sports.removeQuestion();
 		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());
+			rock.removeQuestion();
 	}
 
 	private String currentCategory() {
