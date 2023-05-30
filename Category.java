@@ -15,18 +15,6 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LinkedList<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(LinkedList<Question> questions) {
-        this.questions = questions;
-    }
-
     public void addQuestion(int i) {
 
         questions.addLast(getName() + " Question " + i);

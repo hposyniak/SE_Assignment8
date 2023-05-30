@@ -23,21 +23,13 @@
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-
 
 public class Game {
-	ArrayList<Player> players = new ArrayList<>();
-
-	LinkedList popQuestions = new LinkedList();
-	LinkedList scienceQuestions = new LinkedList();
-	LinkedList sportsQuestions = new LinkedList();
-	LinkedList rockQuestions = new LinkedList();
-
-	Category pop = new Category("Pop");
-	Category science = new Category("Science");
-	Category sports = new Category("Sports");
-	Category rock = new Category("Rock");
+	private ArrayList<Player> players = new ArrayList<>();
+	private final Category pop = new Category("Pop");
+	private final Category science = new Category("Science");
+	private final Category sports = new Category("Sports");
+	private final Category rock = new Category("Rock");
 
 	//int token = 0; // renamed the previous currentPlayer int variable to token, as in the current player has the token
 	int currentPlayer = 0;
@@ -67,11 +59,6 @@ public class Game {
 			science.addQuestion(i);
 			sports.addQuestion(i);
 			rock.addQuestion(i);
-
-//			popQuestions.addLast("Pop Question " + i);
-//			scienceQuestions.addLast(("Science Question " + i));
-//			sportsQuestions.addLast(("Sports Question " + i));
-//			rockQuestions.addLast(createRockQuestion(i));
 
 		}
 	}
@@ -177,7 +164,7 @@ public class Game {
 		boolean winner = didPlayerWin();
 		currentPlayer++;
 			if (currentPlayer == players.size())
-			currentPlayer = 0;
+				currentPlayer = 0;
 
 		return winner;
 	}
